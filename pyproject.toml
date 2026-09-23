@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-lab"
+version = "0.1.0"
+description = "A progressive LLM and agent engineering lab that grows into a Personal Engineering Research Agent."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "magic-alt"}]
+dependencies = [
+  "openai>=1.0.0",
+  "pydantic>=2.8",
+  "python-dotenv>=1.0",
+  "numpy>=2.0",
+]
+
+[project.optional-dependencies]
+tokens = ["tiktoken>=0.7"]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "ruff>=0.9",
+]
+
+[project.scripts]
+agent-lab = "agent_lab.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q --disable-warnings --maxfail=1"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
