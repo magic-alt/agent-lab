@@ -1,0 +1,41 @@
+name: bootstrap-source
+
+on:
+  push:
+    branches:
+      - feat/phase-00-04-foundation
+    paths:
+      - ".bootstrap/agent-lab-phase1.zip"
+      - ".github/workflows/bootstrap-source.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  expand-source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/phase-00-04-foundation
+          fetch-depth: 0
+      - name: Expand source artifact
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp -d)"
+          unzip -q .bootstrap/agent-lab-phase1.zip -d "$tmp"
+          rsync -a --delete --exclude ".git/" "$tmp/agent-lab/" ./
+          rm -rf .bootstrap
+          rm -f .github/workflows/bootstrap-source.yml
+      - name: Commit expanded source
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No source changes to commit."
+            exit 0
+          fi
+          git commit -m "feat: bootstrap cumulative LLM and agent engineering lab"
+          git push origin HEAD:feat/phase-00-04-foundation
