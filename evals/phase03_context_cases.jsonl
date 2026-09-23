@@ -1,0 +1,2 @@
+{"case_id":"ctx-001","input":"Prioritize current servo timing evidence over unrelated CNN notes.","expected_contains":["timing","servo"],"metadata":{"phase":3,"purpose":"relevance"}}
+{"case_id":"ctx-002","input":"Keep the explicit engineering constraint when budget is tight.","expected_contains":["constraint"],"metadata":{"phase":3,"purpose":"priority"}}
