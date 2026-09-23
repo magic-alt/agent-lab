@@ -24,14 +24,17 @@ jobs:
           set -euo pipefail
           tmp="$(mktemp -d)"
           unzip -q .bootstrap/agent-lab-phase1.zip -d "$tmp"
-          rsync -a --delete --exclude ".git/" "$tmp/agent-lab/" ./
-          rm -rf .bootstrap
-          rm -f .github/workflows/bootstrap-source.yml
+          rsync -a --delete \
+            --exclude ".git/" \
+            --exclude ".bootstrap/" \
+            --exclude ".github/workflows/bootstrap-source.yml" \
+            --exclude ".github/workflows/ci.yml" \
+            "$tmp/agent-lab/" ./
       - name: Commit expanded source
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+magic-alt@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
             echo "No source changes to commit."
