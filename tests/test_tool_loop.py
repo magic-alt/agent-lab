@@ -15,7 +15,10 @@ class FakeProvider:
         self.seen_inputs.append(list(input_items))
         if self.calls == 1:
             raw = SimpleNamespace(
-                type="function_call", call_id="c1", name="calculate", arguments='{"expression":"6*7"}'
+                type="function_call",
+                call_id="c1",
+                name="calculate",
+                arguments='{"expression":"6*7"}',
             )
             return ModelStep(
                 response_id="r1",
@@ -37,4 +40,7 @@ def test_manual_tool_loop_round_trip():
     assert answer == "42"
     assert provider.calls == 2
     second = provider.seen_inputs[1]
-    assert any(isinstance(x, dict) and x.get("type") == "function_call_output" for x in second)
+    assert any(
+        isinstance(item, dict) and item.get("type") == "function_call_output"
+        for item in second
+    )

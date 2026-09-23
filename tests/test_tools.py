@@ -9,11 +9,11 @@ def test_safe_calculate_arithmetic_only():
 
 def test_safe_calculate_rejects_code_execution():
     try:
-        safe_calculate("__import__('os').system('echo nope')")
+        safe_calculate("abs(-1)")
     except ValueError as exc:
         assert "unsupported" in str(exc)
     else:
-        raise AssertionError("unsafe expression was accepted")
+        raise AssertionError("function calls were accepted")
 
 
 def test_registry_rejects_extra_arguments():
@@ -31,11 +31,15 @@ def test_file_tool_is_jailed(tmp_path: Path):
     (tmp_path / "ok.txt").write_text("hello", encoding="utf-8")
     registry = build_default_registry(file_root=tmp_path)
     ok = registry.execute(
-        call_id="a", name="read_text_file", arguments_json='{"path":"ok.txt","max_chars":10}'
+        call_id="a",
+        name="read_text_file",
+        arguments_json='{"path":"ok.txt","max_chars":10}',
     )
     assert ok.ok and ok.output == "hello"
     escaped = registry.execute(
-        call_id="b", name="read_text_file", arguments_json='{"path":"../secret.txt","max_chars":null}'
+        call_id="b",
+        name="read_text_file",
+        arguments_json='{"path":"../secret.txt","max_chars":null}',
     )
     assert not escaped.ok
 

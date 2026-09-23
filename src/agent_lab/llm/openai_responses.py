@@ -64,8 +64,8 @@ class OpenAIResponsesProvider:
             if item_type == "function_call":
                 calls.append(
                     ToolCall(
-                        call_id=str(getattr(item, "call_id")),
-                        name=str(getattr(item, "name")),
+                        call_id=str(item.call_id),
+                        name=str(item.name),
                         arguments_json=str(getattr(item, "arguments", "{}")),
                     )
                 )

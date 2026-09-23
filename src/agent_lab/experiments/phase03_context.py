@@ -5,10 +5,30 @@ from agent_lab.context import ContextItem, ContextPolicy
 
 def demo_items() -> list[ContextItem]:
     return [
-        ContextItem("question", "Question: Why can EtherCAT DC jitter hurt CSP control?", 100, "user"),
-        ContextItem("evidence", "Evidence: timing jitter perturbs when cyclic setpoints arrive.", 80, "notes"),
-        ContextItem("noise", "Unrelated: image classification uses convolution filters.", 5, "old-note"),
-        ContextItem("constraint", "Constraint: distinguish bus timing from servo-loop bandwidth.", 90, "spec"),
+        ContextItem(
+            "question",
+            "Question: Why can EtherCAT DC jitter hurt CSP control?",
+            100,
+            "user",
+        ),
+        ContextItem(
+            "evidence",
+            "Evidence: timing jitter perturbs when cyclic setpoints arrive.",
+            80,
+            "notes",
+        ),
+        ContextItem(
+            "noise",
+            "Unrelated: image classification uses convolution filters.",
+            5,
+            "old-note",
+        ),
+        ContextItem(
+            "constraint",
+            "Constraint: distinguish bus timing from servo-loop bandwidth.",
+            90,
+            "spec",
+        ),
     ]
 
 

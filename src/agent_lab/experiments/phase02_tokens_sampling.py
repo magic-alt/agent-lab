@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import math
-
 import numpy as np
 
 
@@ -9,7 +7,9 @@ def count_tokens(text: str, encoding_name: str = "o200k_base") -> int:
     try:
         import tiktoken
     except ImportError as exc:
-        raise RuntimeError("Install the optional tokenizer dependency: pip install -e '.[tokens]'") from exc
+        raise RuntimeError(
+            "Install the optional tokenizer dependency: pip install -e '.[tokens]'"
+        ) from exc
     encoding = tiktoken.get_encoding(encoding_name)
     return len(encoding.encode(text))
 

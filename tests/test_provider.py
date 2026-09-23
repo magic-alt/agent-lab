@@ -10,9 +10,17 @@ class FakeResponses:
     def create(self, **kwargs):
         self.kwargs = kwargs
         call = SimpleNamespace(
-            type="function_call", call_id="call_123", name="calculate", arguments='{"expression":"2+2"}'
+            type="function_call",
+            call_id="call_123",
+            name="calculate",
+            arguments='{"expression":"2+2"}',
         )
-        return SimpleNamespace(id="resp_1", output_text="", output=[call], usage={"input_tokens": 10})
+        return SimpleNamespace(
+            id="resp_1",
+            output_text="",
+            output=[call],
+            usage={"input_tokens": 10},
+        )
 
 
 class FakeClient:

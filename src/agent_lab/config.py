@@ -11,7 +11,7 @@ class Settings:
     trace_dir: Path
 
     @classmethod
-    def from_env(cls, *, require_model: bool = False) -> "Settings":
+    def from_env(cls, *, require_model: bool = False) -> Settings:
         model = os.getenv("AGENT_LAB_MODEL", "").strip()
         if require_model and not model:
             raise RuntimeError(
